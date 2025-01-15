@@ -3,20 +3,45 @@
  * each day’s temperature is higher than on the previous day in that sequence.
  *
  * @author Zach Blick
- * @author YOUR NAME HERE
+ * @author SIERRA SHAW
  */
 
 public class WeatherPatterns {
-
 
     /**
      * Longest Warming Trend
      * @param temperatures
      * @return the longest run of days with increasing temperatures
      */
-    public static int longestWarmingTrend(int[] temperatures) {
-        // TODO: Write your code here!
 
-        return 0;
+public static int longestWarmingTrend(int[] temperatures) {
+    int tempLen = temperatures.length;
+    int[] days = new int[tempLen];
+    int longestSpan = 0;
+
+    // Go through every temperature
+    for (int i = 0; i < tempLen; i++) {
+        int currentTemp = temperatures[i];
+        int mostDays = 0;
+
+        // For every value up to that temperature, check to find the longest length of days that stems from
+        // the current temperature we're at (must be below current temperature to add another step)
+        for (int j = 0; j < i; j++) {
+            if (temperatures[j] < currentTemp && days[j] > mostDays) {
+                mostDays = days[j];
+            }
+        }
+
+        // Adding one to the largest "streak"
+        days[i] = mostDays + 1;
+
+        // Check as you go to find the max number of days
+        if (days[i] > longestSpan) {
+            longestSpan = days[i];
+        }
     }
+
+    return longestSpan;
+}
+
 }
